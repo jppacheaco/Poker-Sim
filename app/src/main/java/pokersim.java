@@ -5,9 +5,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import pokersim.deck;
+
 public class pokersim{
     public static void main(String[] args) {
-        Scanner keyboard = new Scanner();
+        Scanner keyboard = new Scanner(System.in);
 
         System.out.println("Enter the cards in your hand with the format number space suit. (ex. jack spade, 10 club ");
         String response = keyboard.nextLine();
@@ -21,7 +23,7 @@ public class pokersim{
         Integer card1 = 0;
         Integer card2 = 0;
 
-        Deck myDeck = new deck();
+        deck myDeck = new deck();
         Integer[] posCards = mydeck.cards;
         String[] posSuits = myDeck.suits;
 
