@@ -1,12 +1,10 @@
+package pokersim;
 //main program for poker sim
 //this part will take in the hand of the player and the cards on the board
 //returning the odds that the player has the best hands
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import main.java.pokersim.Hand;
-import pokersim.deck;
 
 public class pokersim{
     public static void main(String[] args) {
@@ -19,13 +17,13 @@ public class pokersim{
 
         //determine the hand from the response
 
-        String suit1;
-        String suit2;
+        String suit1 = "empty";
+        String suit2 = "empty";
         Integer card1 = 0;
         Integer card2 = 0;
 
-        deck myDeck = new deck();
-        Integer[] posCards = mydeck.cards;
+        Deck myDeck = new Deck();
+        Integer[] posCards = myDeck.cards;
         String[] posSuits = myDeck.suits;
 
         //iterate through entire response
@@ -48,11 +46,15 @@ public class pokersim{
                 }
                 else{
                     //find numeric value else
-                    for (int c = 0; c<10; c++){
-                        Integer iterCard = posCards[c];
-                        if (Integer.parseInt(splitRes[i]) == iterCard){
-                            card1 = iterCard;
+                    char[] myString = splitRes[i].toCharArray(); 
+                    StringBuilder val = new StringBuilder();
+                    for (int c = 0; c<myString.length; c++){
+                        if (Character.isDigit(myString[c])){
+                            val.append(myString[c]);
                         }
+                    }
+                    if (val.toString()!= ""){
+                        card1 = Integer.valueOf(val.toString());
                     }
                 }
             }
@@ -73,11 +75,17 @@ public class pokersim{
                 }
                 else{
                     //find numeric value else
-                    for (int c = 0; c<10; c++){
-                        Integer iterCard = posCards[c];
-                        if (Integer.parseInt(splitRes[i]) == iterCard){
-                            card2 = iterCard;
+                    char[] myString = splitRes[i].toCharArray(); 
+                    StringBuilder val = new StringBuilder();
+                    for (int c = 0; c<myString.length; c++){
+                        if (Character.isDigit(myString[c])){
+                            val.append(myString[c]);
                         }
+                    }
+                    
+                    if (val.toString()!= ""){
+                        System.out.print(val.toString());
+                        card2 = Integer.valueOf(val.toString());
                     }
                 }
             }
@@ -98,10 +106,12 @@ public class pokersim{
         }
         
         //add hand to array
-        ArrayList<Hand<C,S>> myHand = new ArrayList<Hand>();
-        myHand.add(new Hand <String, Integer> (card1, suit1));
-        myHand.add(new Hand <String, Integer> (card2, suit2));
+        ArrayList<Hand<String, Integer>> myHand = new ArrayList<Hand<String, Integer>>();
+        myHand.add(new Hand (card1, suit1));
+        myHand.add(new Hand (card2, suit2));
 
         System.out.println(myHand.toString());
+
+
     }
 }

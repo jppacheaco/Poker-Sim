@@ -1,6 +1,6 @@
 package pokersim;
 
-public class Hand <C, S>{
+public class Hand<C,S>{
     private C card;
 
     private S suit;
