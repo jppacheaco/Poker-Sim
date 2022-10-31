@@ -5,13 +5,16 @@ package pokersim;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import pokersim.Deck;
+import pokersim.Hand;
 
 public class pokersim{
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
-        System.out.println("Enter the cards in your hand with the format number space suit. (ex. jack spade, 10 club ");
+        System.out.println("Enter the cards in your hand with the format number space suit. (ex. jack spade, 10 club) ");
         String response = keyboard.nextLine();
+        keyboard.close();
 
         String[] splitRes = response.split(" ");
 
@@ -23,7 +26,7 @@ public class pokersim{
         Integer card2 = 0;
 
         Deck myDeck = new Deck();
-        Integer[] posCards = myDeck.cards;
+        // Integer[] posCards = myDeck.cards;
         String[] posSuits = myDeck.suits;
 
         //iterate through entire response
@@ -53,7 +56,7 @@ public class pokersim{
                             val.append(myString[c]);
                         }
                     }
-                    if (val.toString()!= ""){
+                    if ((val.toString().equals("")) == false){
                         card1 = Integer.valueOf(val.toString());
                     }
                 }
@@ -83,30 +86,31 @@ public class pokersim{
                         }
                     }
                     
-                    if (val.toString()!= ""){
-                        System.out.print(val.toString());
+                    if ((val.toString().equals("")) == false){
                         card2 = Integer.valueOf(val.toString());
                     }
                 }
             }
 
             //finding suits
+            System.out.println(splitRes[i]);
             for (int s = 0; s < 4; s++){
+                System.out.println(posSuits[s]);
                 //compare word with each suit to find a match
-                if(posSuits[s].equalsIgnoreCase(splitRes[i])){
+                if((posSuits[s].toLowerCase()).contains(splitRes[i].toLowerCase())){
                     //if we havent found the first suit
-                    if (suit1.equals(null)){
-                        suit1 = splitRes[i];
+                    if (suit1.equals("empty")){
+                        suit1 = posSuits[s];
                     }
                     else{
-                        suit2 = splitRes[i];
+                        suit2 = posSuits[s];
                     }
                 }
             }
         }
         
         //add hand to array
-        ArrayList<Hand<String, Integer>> myHand = new ArrayList<Hand<String, Integer>>();
+        ArrayList<Hand<Integer, String>> myHand = new ArrayList<Hand<Integer, String>>();
         myHand.add(new Hand (card1, suit1));
         myHand.add(new Hand (card2, suit2));
 
